@@ -67,9 +67,46 @@ bot.start(ctx => {
 bot.on('message', ctx => {
 
   switch(ctx.message.text) {
-    case KB.main.attractions:
-      sendAttractionsScreen(ctx)
+    case KB.main.destination:
+      sendDestination(ctx)
       break
+    case KB.main.chat:
+      sendChat(ctx)
+      break
+    case KB.main.visa:
+      sendVisa(ctx)
+      break
+    case KB.main.attractions:
+      sendAttractions(ctx)
+      break
+    case KB.main.slang:
+      sendSlang(ctx)
+      break
+    case KB.main.laws:
+      sendLaws(ctx)
+      break
+    case KB.main.initiative:
+      sendInitiative(ctx)
+      break
+    case KB.initiative.feedback:
+      sendInitiative(ctx, 'feedback')
+      break
+    case KB.initiative.button:
+      sendInitiative(ctx, 'button')
+      break
+    case KB.main.transport:
+      sendTransport(ctx)
+      break
+    case KB.transport.auto:
+      sendTransport(ctx, 'auto')
+      break
+    case KB.transport.bike:
+      sendTransport(ctx, 'bike')
+      break
+    case KB.transport.public:
+      sendTransport(ctx, 'public')
+      break
+    /* --------------------------- */
     case KB.place.queensland.name:
       sendMap(ctx, KB.place.queensland.coordinates)
       break
@@ -111,7 +148,29 @@ function sendGreeting(ctx, sayHello = true) {
       )
 }
 
-function sendAttractionsScreen(ctx) {
+/* Function Bloc */
+
+function sendDestination(ctx) {
+  const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+  ctx.reply(text)
+}
+
+function sendChat(ctx) {
+  const text = 'Здесь будет находится Чат... Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+  ctx.reply(text)
+}
+
+function sendVisa(ctx) {
+  const text = 'Здесь будет находится Информация о получении визы... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+  ctx.reply(text)
+}
+
+function sendLaws(ctx) {
+  const text = 'Здесь будет находится Местные Законы... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+  ctx.reply(text)
+}
+
+function sendAttractions(ctx) {
 
     const text = 'Выберите место'
 
@@ -125,68 +184,109 @@ function sendAttractionsScreen(ctx) {
       )
 }
 
+function sendSlang(ctx) {
+  const text = 'Здесь будет находится - Cловарь сленга... Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+  ctx.reply(text)
+}
+function sendInitiative(ctx, type = false) {
+
+  if (!type) {
+    const text = 'Отзывы и предложения'
+
+    ctx.reply(text, 
+      Markup.keyboard([
+        [KB.initiative.feedback, KB.initiative.button],
+        [KB.main.back]
+      ]).extra()
+    )
+
+  } else {
+    if (type == 'feedback') {
+
+      const text = 'Вы выбрали Написать отзыв' 
+
+      ctx.reply(text,
+        Markup.keyboard([
+          [KB.main.initiative]
+        ]).extra()
+      )
+
+    }
+    if (type == 'button') {
+
+      const text = 'Вы выбрали Добавить кнопку' 
+
+      ctx.reply(text,
+        Markup.keyboard([
+          [KB.main.initiative]
+        ]).extra()
+      )
+
+    }
+  }
+
+}
+
+function sendTransport(ctx, type = false) {
+
+  if (!type) {
+
+    const text = 'Выберите транспорт'
+
+    ctx.reply(text, 
+      Markup.keyboard([
+        [KB.transport.auto, KB.transport.bike, KB.transport.public],
+        [KB.main.back]
+      ]).extra()
+    )
+
+  } else {
+    if (type == 'auto') {
+
+      const text = 'Вы выбрали Автомобиль' 
+
+      ctx.reply(text,
+        Markup.keyboard([
+          [KB.main.transport]
+        ]).extra()
+      )
+
+    }
+    if (type == 'bike') { 
+
+      const text = 'Вы выбрали Байк'
+
+      ctx.reply(text,
+        Markup.keyboard([
+          [KB.main.transport]
+        ]).extra()
+      )
+
+    }
+
+    if (type == 'public') {
+
+      const text = 'Вы выбрали Общественный транспорт'
+
+      ctx.reply(text,
+        Markup.keyboard([
+          [KB.main.transport]
+        ]).extra()
+      )
+
+    }
+    
+  }
+
+}
+
 function sendMap(ctx, coordinates) {
 
   const link = `https://www.google.com/maps?q=${coordinates}`
   
-  return ctx.reply(link).extra()
+  return ctx.reply(link)
   /* type 2 */
   //ctx.replyWithLocation(54.699484, 20.503634)
 }
-
-// function sendPictureScreen(ctx) {
-
-//   const text = 'Выберите тип картинки: '
-
-//   return ctx.reply(text,
-//         Markup.keyboard([
-//           [KB.car, KB.cat],
-//           [KB.back]
-//         ]).extra()
-//       )
-// }
-
-// function sendPictureByName(ctx) {
-
-//   const srcs = picSrc[ctx.message.text]
-//   const src = srcs[_.random(0, srcs.length - 1)]
-
-//   ctx.reply('Загружаю...')
-
-//   ctx.replyWithPhoto({
-//     source: `${__dirname}/pictures/${src}`
-//   })
-
-// }
-
-// function sendCurrencyScreen(ctx) {
-
-//   const text = 'Выберите тип валюты:'
-
-//   return ctx.reply(text,
-//         Markup.inlineKeyboard([
-//           Markup.callbackButton('Доллар', 'USD'),
-//           Markup.callbackButton('Евро', 'EUR'),
-//         ]).extra()
-//       )
-// }
-
-// bot.on('callback_query', ctx => {
-
-//   const base = ctx.update.callback_query.data
-//   const symbol = 'RUB';
-
-//   ctx.answerCbQuery('Wait...')
-
-//   axios.get(`https://api.fixer.io/latest?symbols=${symbol}&base=${base}`)
-//     .then(res => {
-
-//       const html = `<b>1 ${base}</b> - <em>${res.data.rates[symbol]} ${symbol}</em>`
-
-//       ctx.replyWithHTML(html)
-
-//     })
-//     .catch(err => console.log(err))
-// })
 
 bot.startPolling()
