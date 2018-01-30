@@ -6,7 +6,7 @@ const axios = require('axios')
 const _ = require('lodash')
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
-const { Markup } = require('telegraf')
+const Markup = require('telegraf/markup')
 
 let state = {}
 
