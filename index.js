@@ -151,8 +151,12 @@ function sendGreeting(ctx, sayHello = true) {
 /* Function Bloc */
 
 function sendDestination(ctx) {
-  const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-  ctx.reply(text)
+  // const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+  // ctx.reply(text)
+
+  const link = `http://telegra.ph/Zakat-v-Pionerskom-02-01`
+  
+  return ctx.reply(link)
 }
 
 function sendChat(ctx) {
